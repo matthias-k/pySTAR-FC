@@ -8,13 +8,13 @@ import matplotlib.gridspec as gridspec
 
 import time
 
-from Environment import Environment
-from PeripheralAttentionalMap import PeripheralAttentionalMap
-from CentralAttentionalMap import CentralAttentionalMap
-from ConspicuityMap import ConspicuityMap
-from PriorityMap import PriorityMap
-from FixationHistoryMap import FixationHistoryMap
-from Eye import Eye
+from .Environment import Environment
+from .PeripheralAttentionalMap import PeripheralAttentionalMap
+from .CentralAttentionalMap import CentralAttentionalMap
+from .ConspicuityMap import ConspicuityMap
+from .PriorityMap import PriorityMap
+from .FixationHistoryMap import FixationHistoryMap
+from .Eye import Eye
 
 class Controller:
     def __init__(self, settings):

@@ -2,8 +2,8 @@ import numpy as np
 import math
 import cv2
 
-from AIM import AIM
-from ICF import ICF
+from .AIM import AIM
+from .ICF import ICF
 
 class PeripheralAttentionalMap:
 
