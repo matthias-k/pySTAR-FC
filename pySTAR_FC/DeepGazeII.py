@@ -1,3 +1,5 @@
+import os
+
 import tensorflow as tf
 import numpy as np
 from scipy.ndimage import zoom
@@ -8,6 +10,9 @@ class DeepGazeII:
     def __init__(self):
         #self.centerbias_template = np.load('contrib/DeepGazeII/centerbias.npy')
         check_point = 'contrib/DeepGazeII/DeepGazeII.ckpt'
+        pySTAR_FC_directory = os.environ.get('STARFCPY_ROOT')
+        if pySTAR_FC_directory:
+            check_point = os.path.join(pySTAR_FC_directory, check_point)
         tf.reset_default_graph()
         new_saver = tf.train.import_meta_graph('{}.meta'.format(check_point))
 

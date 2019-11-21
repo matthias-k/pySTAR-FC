@@ -1,3 +1,5 @@
+import os
+
 import scipy.io as sio
 import scipy.signal as sig
 import numpy as np
@@ -16,6 +18,10 @@ class AIM:
         self.img = None
         self.aimTemp = None
         self.sm = None
+
+        pySTAR_FC_directory = os.environ.get('STARFCPY_ROOT')
+        if pySTAR_FC_directory:
+            basisMatPath = os.path.join(pySTAR_FC_directory, basisMatPath)
 
         self.loadBasis(basisMatPath)
 
