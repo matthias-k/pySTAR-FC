@@ -30,7 +30,7 @@ class DeepGazeII:
         self.centerbias_data = np.zeros([1, self.img.shape[0], self.img.shape[1], 1], dtype=np.float32)
 
         image_data = self.img[np.newaxis, :, :, :]
-        print(self.input_tensor)
+        # print(self.input_tensor)
         log_density_prediction = self.sess.run(self.log_density, {
             self.input_tensor: image_data,
             self.centerbias_tensor: self.centerbias_data,

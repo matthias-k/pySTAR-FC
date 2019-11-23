@@ -27,7 +27,7 @@ class PeripheralAttentionalMap:
         centY = round(self.width/2)
 
         self.settings.pSizePix = self.settings.pSizeDeg*self.settings.pix2deg
-        print(self.settings.pSizePix)
+        # print(self.settings.pSizePix)
         for i in range(self.height):
             for j in range(self.width):
                 rad = math.sqrt((i-centX)*(i-centX) + (j-centY)*(j-centY))

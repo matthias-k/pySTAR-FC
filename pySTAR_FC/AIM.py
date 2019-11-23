@@ -29,7 +29,7 @@ class AIM:
         B = sio.loadmat(basisMatPath)['B'].astype(np.float32)
         B = np.asfortranarray(B)
         kernel_size = int(math.sqrt(B.shape[1]/3))
-        print(B.shape, kernel_size)
+        # print(B.shape, kernel_size)
         self.basis = np.reshape(B, (B.shape[0], kernel_size, kernel_size, 3), order='F')
 
         #AIM requires correlation operation, but since scipy only has convolution available
