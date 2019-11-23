@@ -17,7 +17,11 @@ class CentralAttentionalMap:
             self.buSal = DeepGazeII()
         if 'SALICONtf' in settings.CentralSalAlgorithm:
             from .SALICONtf import SALICONtf
-            self.buSal = SALICONtf(weights='contrib/SALICONtf/models/model_lr0.01_loss_crossentropy.h5')
+            weights = 'contrib/SALICONtf/models/model_lr0.01_loss_crossentropy.h5'
+            pySTAR_FC_directory = os.environ.get('STARFCPY_ROOT')
+            if pySTAR_FC_directory:
+                weights = os.path.join(pySTAR_FC_directory, weights)
+            self.buSal = SALICONtf(weights=weights)
             self.cv2pil = True
         self.initCentralMask()
 
