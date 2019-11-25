@@ -20,7 +20,9 @@ class DeepGazeII:
         self.centerbias_tensor = tf.get_collection('centerbias_tensor')[0]
         self.log_density = tf.get_collection('log_density')[0]
 
-        self.sess = tf.Session()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        self.sess = tf.Session(config=config)
         new_saver.restore(self.sess, check_point)
 
 
