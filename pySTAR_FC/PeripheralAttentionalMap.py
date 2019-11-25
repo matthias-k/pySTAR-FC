@@ -42,6 +42,6 @@ class PeripheralAttentionalMap:
 
     def computePeriphMap(self, mask):
         blurredPeriphMap = cv2.GaussianBlur(self.salMap,(11,11),0)
-        self.periphMap = self.salMap.copy()
+        self.periphMap = self.blurredPeriphMap.copy()
         if mask:
             self.periphMap[self.periphMask==0] = 0
