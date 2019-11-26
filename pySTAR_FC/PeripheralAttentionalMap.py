@@ -7,17 +7,22 @@ from .ICF import ICF
 
 class PeripheralAttentionalMap:
 
-    def __init__(self, h, w, settings):
+    def __init__(self, h, w, settings, saliency_models=None):
         self.settings = settings
         self.height = h
         self.width = w
         self.salMap = None
         self.periphMap = None
 
-        if 'AIM' in settings.PeriphSalAlgorithm:
-            self.buSal = AIM(settings.AIMBasis)
-        elif 'ICF' in settings.PeriphSalAlgorithm:
-            self.buSal = ICF()
+        if saliency_models is None:
+            saliency_models = {}
+        self.saliency_models = saliency_models
+
+        if 'AIM' in settings.PeriphSalAlgorithm and 'AIM' not in self.saliency_models:
+            self.saliency_models[settings.PeriphSalAlgorithm] = AIM(settings.AIMBasis)
+        if 'ICF' in settings.PeriphSalAlgorithm and 'ICF' not in self.saliency_models:
+            self.saliency_models[settings.PeriphSalAlgorithm] = ICF()
+        self.buSal = self.saliency_models[settings.PeriphSalAlgorithm]
 
         self.initPeripheralMask()
 

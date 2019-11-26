@@ -6,24 +6,31 @@ import cv2
 from PIL import Image
 
 class CentralAttentionalMap:
-    def __init__(self, h, w, settings):
+    def __init__(self, h, w, settings, saliency_models=None):
         self.height = h
         self.width = w
         self.settings = settings
         self.centralMask = None
         self.centralMap = None
         self.cv2pil = False
-        if 'DeepGazeII' in settings.CentralSalAlgorithm:
+
+        if saliency_models is None:
+            saliency_models = {}
+        self.saliency_models = saliency_models
+
+        if 'DeepGazeII' in settings.CentralSalAlgorithm and 'DeepGazeII' not in self.saliency_models:
             from .DeepGazeII import DeepGazeII
-            self.buSal = DeepGazeII()
-        if 'SALICONtf' in settings.CentralSalAlgorithm:
+            self.saliency_models[settings.CentralSalAlgorithm] = DeepGazeII()
+        if 'SALICONtf' in settings.CentralSalAlgorithm and 'SALICONtf' not in self.saliency_models:
             from .SALICONtf import SALICONtf
             weights = 'contrib/SALICONtf/models/model_lr0.01_loss_crossentropy.h5'
             pySTAR_FC_directory = os.environ.get('STARFCPY_ROOT')
             if pySTAR_FC_directory:
                 weights = os.path.join(pySTAR_FC_directory, weights)
-            self.buSal = SALICONtf(weights=weights)
+            self.saliency_models[settings.CentralSalAlgorithm] = SALICONtf(weights=weights)
+        if 'SALICONtf' in settings.CentralSalAlgorithm:
             self.cv2pil = True
+        self.buSal = self.saliency_models[settings.CentralSalAlgorithm]
         self.initCentralMask()
 
     def initCentralMask(self):

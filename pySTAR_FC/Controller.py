@@ -34,6 +34,9 @@ class Controller:
                 os.makedirs(self.settings.saveDir)
                 self.saveResults = True
 
+        # cache saliency models to avoid reloading them again and again
+        self.saliency_models = {}
+
     #get input images
     def getInputImages(self):
         if self.settings.input:
@@ -52,8 +55,8 @@ class Controller:
         else:
             self.env.loadStaticStimulus(imgPath)
         self.eye = Eye(self.settings, self.env)
-        self.periphMap = PeripheralAttentionalMap(self.env.height, self.env.width, self.settings)
-        self.centralMap = CentralAttentionalMap(self.env.height, self.env.width, self.settings)
+        self.periphMap = PeripheralAttentionalMap(self.env.height, self.env.width, self.settings, saliency_models=self.saliency_models)
+        self.centralMap = CentralAttentionalMap(self.env.height, self.env.width, self.settings, saliency_models=self.saliency_models)
         self.conspMap = ConspicuityMap(self.env.height, self.env.width, self.settings)
         self.priorityMap = PriorityMap(self.env.height, self.env.width, self.settings)
         self.fixHistMap = FixationHistoryMap(self.env.height, self.env.width, self.env.hPadded, self.env.wPadded, self.settings)
